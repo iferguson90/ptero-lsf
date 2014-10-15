@@ -1,10 +1,10 @@
 import celery
 import subprocess
 
-__all__ = ['ShellCommandTask']
+__all__ = ['LSFTask']
 
 
-class ShellCommandTask(celery.Task):
+class LSFTask(celery.Task):
     def run(self, command_line, environment=None, stdin=None, callbacks=None):
         self.callback('begun', callbacks, jobId=self.request.id)
 
@@ -34,5 +34,5 @@ class ShellCommandTask(celery.Task):
 
     def _get_http_task(self):
         return celery.current_app.tasks[
-'ptero_shell_command.implementation.celery_tasks.http_callback.HTTPCallbackTask'
+'ptero_lsf.implementation.celery_tasks.http_callback.HTTPCallbackTask'
         ]
